@@ -16,7 +16,7 @@ export async function GET(request: Request) {
   }
 
   const subscriptions = await fetch(
-    "https://www.googleapis.com/youtube/v3/subscriptions?part=snippet,contentDetails&mine=true",
+    "https://www.googleapis.com/youtube/v3/subscriptions?part=snippet,contentDetails&mine=true&maxResults=20",
     { headers: { Authorization: `Bearer ${accessToken.value}` } }
   );
 
