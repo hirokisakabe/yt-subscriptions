@@ -11,13 +11,13 @@ export async function GET(request: Request) {
       {
         error: "Failed to get subscriptions.",
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 
   const subscriptions = await fetch(
     "https://www.googleapis.com/youtube/v3/subscriptions?part=snippet,contentDetails&mine=true&maxResults=20",
-    { headers: { Authorization: `Bearer ${accessToken.value}` } }
+    { headers: { Authorization: `Bearer ${accessToken.value}` } },
   );
 
   return NextResponse.json({ subscriptions: await subscriptions.json() });
