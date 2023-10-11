@@ -2,7 +2,7 @@
 import { signIn } from "next-auth/react";
 import { redirect } from "next/navigation";
 import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import Image from "next/image";
 import { Header } from "../parts";
@@ -13,7 +13,7 @@ export function DashboardPage() {
     onUnauthenticated: () => redirect("/"),
   });
 
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState<any[]>([]);
 
   useEffect(() => {
     if (session?.error === "RefreshAccessTokenError") {
@@ -32,8 +32,21 @@ export function DashboardPage() {
       const json = await subscriptions.json();
 
       setItems(json.subscriptions.items);
+      setPageToken(json.subscriptions.nextPageToken);
     })();
   }, [status]);
+
+  const [pageToken, setPageToken] = useState(null);
+
+  const fetchMore = useCallback(async () => {
+    const subscriptions = await fetch(
+      `/api/subscriptions?pageToken=${pageToken}`,
+    );
+
+    const json = await subscriptions.json();
+    setItems((prevItems) => [...prevItems, ...json.subscriptions.items]);
+    setPageToken(json.subscriptions.nextPageToken);
+  }, [pageToken]);
 
   if (status === "loading") {
     return (
@@ -76,6 +89,11 @@ export function DashboardPage() {
               </div>
             );
           })}
+        </div>
+        <div>
+          <button type="button" onClick={fetchMore}>
+            more
+          </button>
         </div>
       </main>
     </div>
