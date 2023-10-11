@@ -1,10 +1,11 @@
 "use client";
-import { signOut, signIn } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import { redirect } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
 import Image from "next/image";
+import { Header } from "../parts";
 
 export function DashboardPage() {
   const { status, data: session } = useSession({
@@ -45,9 +46,7 @@ export function DashboardPage() {
   return (
     <div className="flex flex-col items-center">
       <main className="px-3 py-1 max-w-screen-md">
-        <button type="button" onClick={() => signOut()}>
-          Sign out
-        </button>
+        <Header />
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
           {items.map((item) => {
             // @ts-ignore
