@@ -1,14 +1,20 @@
 "use client";
-import { signOut } from "next-auth/react";
+import { signOut, signIn } from "next-auth/react";
 import { redirect } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 
 export function DashboardPage() {
-  const { status } = useSession({
+  const { status, data: session } = useSession({
     required: true,
     onUnauthenticated: () => redirect("/"),
   });
+
+  useEffect(() => {
+    if (session?.error === "RefreshAccessTokenError") {
+      signIn();
+    }
+  }, [session]);
 
   useEffect(() => {
     (async () => {
