@@ -22,7 +22,7 @@ export async function GET(request: NextRequest) {
   const paramsObj = {
     part: "snippet",
     mine: "true",
-    maxResults: "20",
+    maxResults: "48",
   };
   const searchParamsForYouTubeAPI = new URLSearchParams(paramsObj);
   if (pageToken) {
