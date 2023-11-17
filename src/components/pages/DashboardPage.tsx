@@ -58,9 +58,9 @@ export function DashboardPage() {
 
   return (
     <div className="flex flex-col items-center">
-      <main className="px-3 py-1 max-w-screen-md">
+      <main className="max-w-screen-md px-3 py-1">
         <Header />
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
           {items.map((item) => {
             // @ts-ignore
             const title = item.snippet.title;
