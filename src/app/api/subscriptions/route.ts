@@ -20,7 +20,7 @@ export async function GET(request: NextRequest) {
   const pageToken = searchParams.get("pageToken");
 
   const paramsObj = {
-    part: "snippet,contentDetails",
+    part: "snippet",
     mine: "true",
     maxResults: "20",
   };
