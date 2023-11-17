@@ -71,7 +71,7 @@ export function DashboardPage() {
             return (
               // @ts-ignore
               <div key={item.id}>
-                <a href={channelUrl}>
+                <a href={channelUrl} target="_blank">
                   <Image
                     src={thumbnailUrl}
                     alt={title}
