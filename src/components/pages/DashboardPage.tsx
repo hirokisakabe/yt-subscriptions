@@ -58,9 +58,9 @@ export function DashboardPage() {
 
   return (
     <div className="flex flex-col items-center">
-      <main className="max-w-screen-md px-3 py-1">
+      <main className="max-w-screen-lg px-3 py-1">
         <Header />
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
           {items.map((item) => {
             // @ts-ignore
             const title = item.snippet.title;
@@ -82,7 +82,7 @@ export function DashboardPage() {
                       borderRadius: "10px",
                     }}
                   />
-                  <div className="p-1 text-blue-600 underline hover:text-red-300">
+                  <div className="p-1 text-sm text-blue-600 underline hover:text-red-300">
                     {title}
                   </div>
                 </a>
