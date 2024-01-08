@@ -2,7 +2,7 @@
 import { signIn } from "next-auth/react";
 import { redirect } from "next/navigation";
 import { useSession } from "next-auth/react";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, useRef } from "react";
 
 import Image from "next/image";
 import { Header } from "../parts";
@@ -48,6 +48,29 @@ export function DashboardPage() {
     setPageToken(json.subscriptions.nextPageToken);
   }, [pageToken]);
 
+  const observerTarget = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          fetchMore();
+        }
+      },
+      { threshold: 1 },
+    );
+
+    if (observerTarget.current) {
+      observer.observe(observerTarget.current);
+    }
+
+    return () => {
+      if (observerTarget.current) {
+        observer.unobserve(observerTarget.current);
+      }
+    };
+  }, [observerTarget, fetchMore]);
+
   if (status === "loading") {
     return (
       <main className="flex min-h-screen flex-col items-center justify-between p-24">
@@ -90,6 +113,7 @@ export function DashboardPage() {
             );
           })}
         </div>
+        <div ref={observerTarget}></div>
         <div>
           <button type="button" onClick={fetchMore}>
             more
